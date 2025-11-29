@@ -1,4 +1,4 @@
-#import "/template/template.typ": ilm
+#import "/template/template.typ": *
 
 #show: ilm.with(
   title: [RoboMaster \ 视觉从入门到入土],
@@ -26,12 +26,30 @@
 = 实战技术篇
 #include "chapters/3.Practice/index.typ"
 = RoboMaster应用篇
-
+#include "chapters/4.Application/index.typ"
 = 进阶篇
-
+#include"chapters/5.Advanced/index.typ"
 = 项目分析
+#include"chapters/6.Projects/index.typ"
 
 
+#definition(
+  "Stokes' theorem",
+  footer: "Information extracted from a well-known public encyclopedia"
+)[
+  Let $Sigma$ be a smooth oriented surface in $RR^3$ with boundary $partial Sigma
+  equiv Gamma$. If a vector field $iboxed(bold(F)(x,y,z))=(F_x (x,y,z), F_y (x,y,z),
+  F_z (x,y,z))$ is defined and has continuous first order partial derivatives
+  in a region containing $Sigma$, then
+
+  $ integral.double_Sigma (bold(nabla) times bold(F)) dot bold(Sigma) =
+  dboxed(integral.cont_(partial Sigma) bold(F) dot dif bold(Gamma)) $ 
+]
+
+#blockquote[
+  这是引用内容。
+  可以放多行文本。
+]
 /*
 = RMCS部分算法分析
 #include "chapters/algorithm/omni_wheel.typ"

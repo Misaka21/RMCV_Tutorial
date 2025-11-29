@@ -1,3 +1,7 @@
+#import "@preview/ctheorems:1.1.3": thmenv, thmrules
+#import "@preview/showybox:2.0.3": showybox
+
+
 // Workaround for the lack of an `std` scope.
 #let std-bibliography = bibliography
 #let std-smallcaps = smallcaps
@@ -333,13 +337,208 @@
   }
 }
 
-// This function formats its `body` (content) into a blockquote.
-#let blockquote(body) = {
-  block(
+
+
+// Configure blockquotes.
+#let blockquote(cite: none, body) = [
+  #set text(size: 0.97em)
+  #pad(left: 1.5em)[
+    #block(
+    breakable: true,
     width: 100%,
-    fill: fill-color,
-    inset: 2em,
-    stroke: (y: 0.5pt + stroke-color),
-    body,
-  )
+    fill: gray.lighten(90%),
+    radius: (left: 0pt, right: 5pt),
+    stroke: (left: 5pt + gray, rest: 1pt + silver),
+    inset: 1em
+    )[#body]
+  ]
+]
+
+
+// Configure horizontal ruler
+#let horizontalrule = {
+  v(1em)
+  line(start: (37%,0%), end: (63%,0%), stroke: stroke((thickness: 0.5pt, dash: "solid")))
+  v(1em)
 }
+
+// Configure alternative horizontal ruler
+#let sectionline = align(center)[#v(0.5em) * \* #sym.space.quad \* #sym.space.quad \* * #v(0.5em)]
+
+// Attempt to add \boxed{} command from LaTeX
+#let dboxed(content) =  {
+    box(stroke: 0.5pt + black, outset: (x: 1pt, y: 8pt), inset: (x: 2pt, y: 1pt), baseline: 6pt, $display(#content)$)
+  } 
+  
+#let iboxed(content) = {
+    box(stroke: 0.5pt + black, outset: (x: 1pt, y: 3pt), inset: (x: 2pt, y: 1pt), baseline: 1pt, $#content$)
+  }
+
+// ==== Nice boxes using showybox and ctheorems packages ====
+//
+// | Environment | Accent Color         |
+// |-------------|----------------------|
+// | Definition  | olive                |
+// | Example     | purple               |
+// | Note        | blue                 |
+// | Attention   | red / rgb("#DC143C") |
+// | Quote       | black                |
+// | Theorem     | navy                 |  
+// | Proposition | maroon               |
+// | Hypothesis  | orange               |
+
+#let boxnumbering = "1.1.1.1.1.1"
+#let boxcounting = "heading"
+
+#let definition = thmenv(
+  "Definition",
+  boxcounting,
+  none,
+  (name, number, body, ..args) => {
+    showybox(
+      title: [*#name* #h(1fr) Definition #number],
+      frame: (
+        border-color: olive,
+        title-color:  olive.lighten(30%),
+        body-color:   olive.lighten(95%),
+        footer-color: olive.lighten(80%),
+      ),
+      ..args.named(),
+      body
+    )
+  }
+).with(numbering: boxnumbering)
+
+#let example = thmenv(
+  "example",
+  boxcounting,
+  none,
+  (name, number, body, ..args) => {
+    showybox(
+      title: [*#name* #h(1fr) Example #number],
+      frame: (
+        border-color: purple,
+        title-color:  purple.lighten(30%),
+        body-color:   purple.lighten(95%),
+        footer-color: purple.lighten(80%),
+      ),
+      ..args.named(),
+      body
+    )
+  }
+).with(numbering: boxnumbering)
+
+#let note = thmenv(
+  "note",
+  boxcounting,
+  none,
+  (name, number, body, ..args) => {
+    showybox(
+      title: [*#name* #h(1fr) Note #number],
+      frame: (
+        border-color: blue,
+        title-color:  blue.lighten(30%),
+        body-color:   blue.lighten(95%),
+        footer-color: blue.lighten(80%),
+      ),
+      ..args.named(),
+      body
+    )
+  }
+).with(numbering: boxnumbering)
+
+#let attention = thmenv(
+  "attention",
+  boxcounting,
+  none,
+  (name, number, body, ..args) => {
+    showybox(
+      title: [*#name* #h(1fr) Attention #number],
+      frame: (
+        border-color: rgb("#DC143C"),
+        title-color:  rgb("#DC143C").lighten(30%),
+        body-color:   rgb("#DC143C").lighten(95%),
+        footer-color: rgb("#DC143C").lighten(80%),
+      ),
+      ..args.named(),
+      body
+    )
+  }
+).with(numbering: boxnumbering)
+
+#let quote = thmenv(
+  "quote",
+  boxcounting,
+  none,
+  (name, number, body, ..args) => {
+    showybox(
+      title: [*#name* #h(1fr) Quote #number],
+      frame: (
+        border-color: black,
+        title-color:  black.lighten(30%),
+        body-color:   black.lighten(95%),
+        footer-color: black.lighten(80%),
+      ),
+      ..args.named(),
+      body
+    )
+  }
+).with(numbering: boxnumbering)
+
+#let theorem = thmenv(
+  "theorem",
+  boxcounting,
+  none,
+  (name, number, body, ..args) => {
+    showybox(
+      title: [*#name* #h(1fr) Theorem #number],
+      frame: (
+        border-color: navy,
+        title-color:  navy.lighten(30%),
+        body-color:   navy.lighten(95%),
+        footer-color: navy.lighten(80%),
+      ),
+      ..args.named(),
+      body
+    )
+  }
+).with(numbering: boxnumbering)
+
+#let proposition = thmenv(
+  "Proposition",
+  boxcounting,
+  none,
+  (name, number, body, ..args) => {
+    showybox(
+      title: [*#name* #h(1fr) Proposition #number],
+      frame: (
+        border-color: maroon,
+        title-color:  maroon.lighten(30%),
+        body-color:   maroon.lighten(95%),
+        footer-color: maroon.lighten(80%),
+      ),
+      ..args.named(),
+      body
+    )
+  }
+).with(numbering: boxnumbering)
+
+
+#let hypothesis = thmenv(
+  "hypothesis",
+  boxcounting,
+  none,
+  (name, number, body, ..args) => {
+    showybox(
+      title: [*#name* #h(1fr) Hypothesis #number],
+      frame: (
+        border-color: orange,
+        title-color:  orange.lighten(10%),
+        body-color:   orange.lighten(95%),
+        footer-color: orange.lighten(80%),
+      ),
+      ..args.named(),
+      body
+    )
+  }
+).with(numbering: boxnumbering)
