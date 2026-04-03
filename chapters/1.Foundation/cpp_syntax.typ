@@ -1,6 +1,10 @@
 #import "/template/template.typ": *
+#import "/template/template.typ": *
+#import "@preview/codly:1.3.0": *
+#import "@preview/codly-languages:0.1.1": *
+#show: codly-init.with()
 
-#show raw.where(block: true): set block(inset: (left: 4em))
+//#show raw.where(block: true): set block(inset: (left: 4em))
 === C++ 基本程序结构
 // 添加编译相关：g++、CMake 简介
 // Hello World、编译流程

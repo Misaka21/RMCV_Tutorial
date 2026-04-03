@@ -1,5 +1,6 @@
+#import "/template/template.typ": *
 
-#show raw.where(block: true): set block(inset: (left: 4em))
+//#show raw.where(block: true): set block(inset: (left: 4em))
 === 图形界面初探
 // Ubuntu 桌面环境快速上手
 // - GNOME 桌面基本操作

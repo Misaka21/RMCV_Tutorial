@@ -34,7 +34,8 @@
 #include "computer_system_basics.typ"
 
 == C++ 语言基础
-#include "cpp_syntax.typ"
+//#include "cpp_syntax.typ"
+
 
 == CMake 与构建系统
 // - 编译原理简介
@@ -42,7 +43,7 @@
 // - 多文件项目组织
 // - 链接外部库
 // - ROS 包的 CMakeLists.txt
-#include "cmake_guide.typ"
+//#include "cmake_guide.typ"
 
 == 软件工程基础
 #include "software_engineering.typ"
